@@ -1,3 +1,5 @@
+import os
+from flask import Flask, request
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -6,6 +8,21 @@ BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 
 # Create a Telebot object
 bot = telebot.TeleBot(BOT_TOKEN)
+
+# 创建 Flask 应用程序实例
+app = Flask(__name__)
+
+# 定义根路由处理逻辑
+@app.route('/')
+def index():
+    return 'Welcome to my zillishop!'
+
+# 定义 Telegram webhook 路由
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
+    bot.process_new_updates([update])
+    return '', 200
 
 # Define a message handler to respond to all messages
 @bot.message_handler(func=lambda message: True)
@@ -48,5 +65,6 @@ def contact_support_callback(call):
     # Handle contact support logic
     bot.send_message(call.message.chat.id, "Our support team will get back to you soon. Please wait patiently.")
 
-# Start the bot
-bot.polling()
+if __name__ == '__main__':
+    # 启动 Flask 应用程序
+    app.run()
