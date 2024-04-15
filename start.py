@@ -1,3 +1,4 @@
+import json
 import os
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -25,13 +26,15 @@ def handle_update():
 # 定义命令处理函数
 @bot.message_handler(commands=['start'])
 def start_command(message):
-    # 创建内联键盘按钮
     keyboard = InlineKeyboardMarkup()
     button1 = InlineKeyboardButton(text="购物", url="https://www.zillishop.com")
     button2 = InlineKeyboardButton(text="查询订单", callback_data="check_order")
     button3 = InlineKeyboardButton(text="联系客服", callback_data="contact_support")
-    keyboard.add_row(button1, button2)
-    keyboard.add_row(button3)
+    keyboard.row(button1, button2)  # 修改后的行
+    keyboard.row(button3)  
+
+    bot.send_message(message.chat.id, "欢迎使用 Zilli Shop Bot！", reply_markup=keyboard)
+
 
     # 发送带按钮的消息
     bot.send_message(message.chat.id, "欢迎使用 Zilli Shop Bot！", reply_markup=keyboard)
