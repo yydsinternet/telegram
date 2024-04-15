@@ -4,10 +4,12 @@ import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # 获取Telegram Bot token
-BOT_TOKEN = os.environ.get('6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg')
+# BOT_TOKEN = os.environ.get('6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg')
+# 修改成下面这样
+BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 
 # 创建 Telebot 实例
-bot = telebot.TeleBot(BOT_TOKEN)
+bot = telebot.TeleBot(6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg)
 
 # 创建 Flask 应用程序实例
 app = Flask(__name__)
@@ -52,7 +54,7 @@ def handle_all_messages(message):
     keyboard.add(InlineKeyboardButton(text="Contact Support", callback_data="contact_support"))
 
     # 修改这里的文本为链接
-    bot.send_message(chat_id, f"<a href='https://www.zillishop.com/'>Hello from Zilli Shop!</a>. You sent: {message.html_text}", reply_markup=keyboard, parse_mode='HTML')
+    bot.send_message(chat_id, f"<a href='https://www.zillishop.com/'>Hello from Zilli Shop!</a>. You sent: {message.text}", reply_markup=keyboard, parse_mode='HTML')
 
 # Define callback handlers for inline buttons
 @bot.callback_query_handler(func=lambda call: call.data == "check_order")
@@ -73,4 +75,3 @@ port = int(os.environ.get("PORT", 5000))
 if __name__ == '__main__':
     # 启动 Flask 应用程序，指定端口号为 Heroku 提供的端口号
     app.run(host='0.0.0.0', port=port)
-
