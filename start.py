@@ -1,10 +1,10 @@
 import os
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-from flask import Flask, request
+from flask import Flask, request # type: ignore
 
 # 替换为您的机器人 token
-BOT_TOKEN = "YOUR_BOT_TOKEN"
+BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 
 # 创建 Telebot 对象
 bot = telebot.TeleBot(BOT_TOKEN)
