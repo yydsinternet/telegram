@@ -49,8 +49,15 @@ def contact_support_callback(call):
     bot.send_message(call.message.chat.id, "Our support team will get back to you soon. Please wait patiently.")
 
 # Start the bot
-bot.polling()
+import os
+from flask import Flask
+
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
