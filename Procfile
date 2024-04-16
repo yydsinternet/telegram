@@ -1,1 +1,1 @@
-web: python bat.py
+web: gunicorn bat:app

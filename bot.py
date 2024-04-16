@@ -9,7 +9,7 @@ from pyTelegramBotAPI.types import InlineKeyboardMarkup, InlineKeyboardButton
 BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 
 # Replace with your Heroku app URL
-HEROKU_APP_URL = "https://yyds-a6c415467569.herokuapp.com"
+HEROKU_APP_URL = "https://yyds-a6c415467569.herokuapp.com/"
 
 # Create a Telebot object
 bot = TeleBot(BOT_TOKEN)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         print("Webhook set up successfully!")
         try:
             # Send a message to notify if the webhook is set up successfully
-            response = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={"chat_id": https://t.me/zillishopbot, "text": "Webhook set up successfully!"})
+            response = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={"chat_id": "@zillishopbot", "text": "Webhook set up successfully!"})
             if response.status_code != 200:
                 print("Failed to send notification message:", response.status_code)
         except Exception as e:
