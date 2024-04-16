@@ -1,2 +1,25 @@
-venv/
-*.pyc
+# 忽略所有编译生成的文件
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+
+# 忽略缓存文件
+node_modules/
+npm-debug.log
+yarn-lock.json
+
+# 忽略 IDE 生成的文件
+.idea/
+.vscode/
+
+# 忽略测试文件
+test/
+spec/
+
+# 忽略日志文件
+*.log
+
+# 忽略临时文件
+tmp/
