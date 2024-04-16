@@ -1,30 +1,11 @@
-import os
-from flask import Flask, request
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# 获取Telegram Bot token
-# BOT_TOKEN = os.environ.get('6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg')
-# 修改成下面这样
+# Replace with your bot token
 BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 
-# 创建 Telebot 实例
-bot = telebot.TeleBot(6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg)
-
-# 创建 Flask 应用程序实例
-app = Flask(__name__)
-
-# 定义根路由处理逻辑
-@app.route('/')
-def index():
-    return 'Welcome to my zillishop!'
-
-# 定义 Telegram webhook 路由
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
-    bot.process_new_updates([update])
-    return '', 200
+# Create a Telebot object
+bot = telebot.TeleBot(BOT_TOKEN)
 
 # Define a message handler to respond to all messages
 @bot.message_handler(func=lambda message: True)
@@ -54,7 +35,7 @@ def handle_all_messages(message):
     keyboard.add(InlineKeyboardButton(text="Contact Support", callback_data="contact_support"))
 
     # 修改这里的文本为链接
-    bot.send_message(chat_id, f"<a href='https://www.zillishop.com/'>Hello from Zilli Shop!</a>. You sent: {message.text}", reply_markup=keyboard, parse_mode='HTML')
+    bot.send_message(chat_id, f"[Welcome Zilli Shop!](https://www.zillishop.com/). You sent: {message.text}", reply_markup=keyboard, parse_mode='Markdown')
 
 # Define callback handlers for inline buttons
 @bot.callback_query_handler(func=lambda call: call.data == "check_order")
@@ -67,11 +48,5 @@ def contact_support_callback(call):
     # Handle contact support logic
     bot.send_message(call.message.chat.id, "Our support team will get back to you soon. Please wait patiently.")
 
-import os
-
-# 获取Heroku提供的端口号，如果没有，则默认使用5000
-port = int(os.environ.get("PORT", 5000))
-
-if __name__ == '__main__':
-    # 启动 Flask 应用程序，指定端口号为 Heroku 提供的端口号
-    app.run(host='0.0.0.0', port=port)
+# Start the bot
+bot.polling()
