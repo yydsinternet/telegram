@@ -2,8 +2,8 @@ import os
 import json
 import requests
 from flask import Flask, request
-import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyTelegramBotAPI import TeleBot
+from pyTelegramBotAPI.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Replace with your bot token
 BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
@@ -12,7 +12,7 @@ BOT_TOKEN = "6979924545:AAGxKlQTUmy8dnJL1J7h1kBw3rqWGCTh_Rg"
 HEROKU_APP_URL = "https://yyds-a6c415467569.herokuapp.com"
 
 # Create a Telebot object
-bot = telebot.TeleBot(BOT_TOKEN)
+bot = TeleBot(BOT_TOKEN)
 
 # Start the Flask app
 app = Flask(__name__)
@@ -66,7 +66,7 @@ def index():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     # Process POST request data
-    update = telebot.types.Update.de_json(request.stream.read().decode("utf-8"))
+    update = TeleBot.types.Update.de_json(request.stream.read().decode("utf-8"))
     bot.process_new_updates([update])
     return "!", 200
 
